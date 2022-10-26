@@ -1,0 +1,99 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
+
+* > * {
+    font-family: "Poppins", cursive;
+    margin: 0;
+}
+
+
+
+.App {
+  height: 120vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  background: linear-gradient(
+    rgba(255, 255, 255, 0.8),
+    rgba(255, 255, 255, 0.2)
+  ),
+  url('../../assets/bg.jpg');
+  
+  background-size: 100% 100%;
+  background-position: center;
+}
+
+.register{
+  max-width: 850px;
+  width: 100vw;
+  height: 100vh;
+  max-height: 800px;
+  display:flex;
+  border: 1px solid #0a0a0b;
+  border-radius: 10px;
+  box-shadow: 1px 3px 10px #e9ecef;
+  background-color: white;
+}
+
+.register span{
+  color: #d65869;
+  font-size: 0.8em;
+
+}
+
+#form{
+  max-width: 300px;
+  width: 100vw;
+  margin: 2em auto;
+}
+
+#form >  #input, .btn{
+  border: 1px solid #010101;
+  padding: .5em 1em;
+}
+
+#form > #input:focus{
+  outline: none;
+}
+
+#form > .btn{
+  background-color: #003049;
+  color: #e9ecef;
+  font-size: 1em;
+  cursor: pointer;
+}
+
+#input > input{
+  width: 100%;
+  font-size: 1em;
+}
+
+.flex{
+  display: flex;
+  gap: 1em;
+}
+
+.flex-col{
+  flex-direction: column;
+}
+
+.register .col-1{
+  margin: auto;
+  padding: 3em 0;
+}
+
+.register .col-2 img{
+  width: 425px;
+  height: 100%;
+  object-fit: cover;
+  align-self: flex-end;
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
+  display: none;
+}
+
+@media screen and (min-width: 800px)  {
+  .register .col-2 img{
+    display: initial;
+  }
+}
