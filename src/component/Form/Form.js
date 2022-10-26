@@ -81,7 +81,7 @@ export default function Form() {
 
 
     const createUser = () => {
-            fetch("http://localhost:4000/auth/register", {
+            fetch("https://registration-api.onrender.com/auth/register", {
                 method: "POST",
                 mode: "cors",
                 headers: {
