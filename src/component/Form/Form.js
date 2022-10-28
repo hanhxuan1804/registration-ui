@@ -1,134 +1,33 @@
 import React from "react";
 import logoImg from "../../assets/logo.jpg";
-import FormInput from "../FormInput/FormInput";
-import { useState, useRef} from "react";
+import {useForm} from "react-hook-form";
 
 export default function Form() {
-    const [values, setValues] = useState({ 
-        email: "",
-        password: "",
-        confirmPassword: "",
-        firstName: "",
-        lastName: "",
-        dateOfBirth: ""
-    });
-    const [errors, setErrors] = useState({
-        email: "",
-        password: "",
-        confirmPassword: "",
-        firstName: "",
-        lastName: "",
-        dateOfBirth: ""
-    });
-  
-    const input = [
-        {
-            id:1,
-            type: "email",
-            name: "email",
-            error: "Please enter a valid email address",
-            placeholder: "Email"
-        },
-        {
-            id:2,
-            type: "password",
-            name: "password",
-            error: "Password must be at least 6 characters",
-            placeholder: "Password"
-        },
-        {
-            id:3,
-            type: "password",
-            name: "confirmPassword",
-            error: "Passwords do not match",
-            placeholder: "Confirm Password"
-        },
-        {
-            id:4,
-            type: "text",
-            name: "firstName",
-            error: "Please enter your first name",
-            placeholder: "First Name"
-        },
-        {
-            id:5,
-            type: "text",
-            name: "lastName",
-            error: "Please enter your last name",
-            placeholder: "Last Name"
-        },
-        {
-            id:6,
-            type: "date",
-            name: "dateOfBirth",
-            error: "Please enter your date of birth",
-            placeholder: "Date of Birth"
-        }
-    ];
-    
-    
-   
-    
-    const currentValues = useRef(values);
-    const handleSubmit =() => {
-        setValues(currentValues.current);
-        if(currentValues.current.password !== currentValues.current.confirmPassword) {
-            setErrors({confirmPassword: "Passwords do not match"});
-            return;
-        }
-        createUser();
-    };
-
-
-    const createUser = () => {
-            fetch("https://registration-api.onrender.com/auth/register", {
-                method: "POST",
-                mode: "cors",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify(values),
-            })
-            .then(async (res) => {
-                if (res.status === 201) {
-                    console.log("Success");
-                } else {
-                    const error = await res.json();
-                    Object.keys(error).forEach(key => {
-                       setErrors(prevState => ({
-                            ...prevState,
-                            [key]: error[key].message
-                        }));
-                    });
-                }
-            })
-            .then()
-            .catch(err => console.log(err));
-    }
-
-    const onChange = (e) => {
-        currentValues.current[e.target.name] = e.target.value;
-        setErrors(prevState => ({
-            ...prevState,
-            [e.target.name]: ""
-        }));
-    }
+    const {register, handleSubmit, watch,  formState: {errors}} = useForm();
+    const onSubmit = data => console.log(data);
     return (
         <section>
             <div className="register">
                 <div className="col-1">
                     <h2>Register</h2>
-                    <div id='form' className="flex flex-col">
-                    {input.map((item) => (
-                        <div  key={item.id}>
-                        <FormInput {...item} value={values[item.name]} onChange={onChange} />
-    
-                        <span>{errors[item.name]}</span>
-                        </div>
-                    ))}
+                    <ul>Already have an account? <a href="#">Login</a></ul>
+                    <form className="flex flex-col" onSubmit={handleSubmit(onSubmit)}>
+                        <input type="email" placeholder="Email" {...register("email",{required: true, pattern: /^\S+@\S+$/i})}/>
+                        {errors.email && errors.email.type === "required" && <span>This field is required</span>}
+                        {errors.email && errors.email.type === "pattern" && <span>Invalid email address</span>}
+                        <input type="password" placeholder="Password" {...register("password",{required: true, minLength: 6})}/>
+                        {errors.password && errors.password.type === "required" && <span>This field is required</span>}
+                        {errors.password && errors.password.type === "minLength" && <span>Password must be at least 6 characters</span>}
+                        <input type="password" placeholder="Confirm Password" {...register("confirmPassword",{required: true})}/>
+                        {errors.confirmPassword && errors.confirmPassword.type === "required" && <span>This field is required</span>}
+                        {!errors.confirmPassword && watch("confirmPassword") !== watch().password && <span>Passwords do not match</span>}
+                        <input type="text" placeholder="Full name" {...register("fullname",{required: true})}/>
+                        {errors.fullname && errors.fullname.type === "required" && <span>This field is required</span>}
+                        <input type="date" placeholder="Date of Birth" {...register("dateOfBirth",{required: true})} defaultValue={"2000-01-01"}/>
+                        {errors.dateOfBirth && errors.dateOfBirth.type === "required" && <span>This field is required</span>}
 
-                    <button className="btn" onClick={handleSubmit}>Sign Up</button>
-                    </div>
+                        <button type="submit" className="btn btn-primary">Register</button>
+                    </form>
                 </div>
                 <div className="col-2">
                     <img src={logoImg} alt="bg" />

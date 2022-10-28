@@ -8,16 +8,13 @@
 
 
 .App {
-  height: 120vh;
+  min-height: 100vh;
+  max-height: 120vh;
   display: flex;
   justify-content: center;
   align-items: center;
   text-align: center;
-  background: linear-gradient(
-    rgba(255, 255, 255, 0.8),
-    rgba(255, 255, 255, 0.2)
-  ),
-  url('../../assets/bg.jpg');
+  background: url('../../assets/bg.jpg');
   
   background-size: 100% 100%;
   background-position: center;
@@ -25,8 +22,8 @@
 
 .register{
   max-width: 850px;
-  width: 100vw;
-  height: 100vh;
+  width: 90vw;
+  height: 80%;
   max-height: 800px;
   display:flex;
   border: 1px solid #0a0a0b;
@@ -37,35 +34,30 @@
 
 .register span{
   color: #d65869;
-  font-size: 0.8em;
-
+  font-size: 0.7em;
+  display: -webkit-box;
 }
 
-#form{
+form{
   max-width: 300px;
   width: 100vw;
-  margin: 2em auto;
+  margin: 1em auto;
 }
 
-#form >  #input, .btn{
+form >  input, .btn{
   border: 1px solid #010101;
   padding: .5em 1em;
 }
 
-#form > #input:focus{
+form > input:focus{
   outline: none;
 }
 
-#form > .btn{
+form > .btn{
   background-color: #003049;
   color: #e9ecef;
   font-size: 1em;
   cursor: pointer;
-}
-
-#input > input{
-  width: 100%;
-  font-size: 1em;
 }
 
 .flex{
@@ -79,7 +71,6 @@
 
 .register .col-1{
   margin: auto;
-  padding: 3em 0;
 }
 
 .register .col-2 img{
@@ -97,3 +88,4 @@
     display: initial;
   }
 }
+
