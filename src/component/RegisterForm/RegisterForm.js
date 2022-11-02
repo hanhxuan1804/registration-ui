@@ -1,16 +1,25 @@
 import React from "react";
 import logoImg from "../../assets/logo.jpg";
 import {useForm} from "react-hook-form";
+import { Link, useNavigate } from "react-router-dom";
+import { useMutation } from "@tanstack/react-query";
+import {ThreeDots} from 'react-loader-spinner'
+import { registerUser } from "../../api";
 
-export default function Form() {
+export default function RegisterForm() {
+    const history = useNavigate();
     const {register, handleSubmit, watch,  formState: {errors}} = useForm();
-    const onSubmit = data => console.log(data);
+    const { mutateAsync, isLoading, isError, error } = useMutation(registerUser);
+    const onSubmit = async (data) => {
+        await mutateAsync(data);
+        history('/login');
+    }
     return (
         <section>
             <div className="register">
                 <div className="col-1">
                     <h2>Register</h2>
-                    <ul>Already have an account? <a href="#">Login</a></ul>
+                    <ul>Already have an account? <Link to="/login">Login</Link></ul>
                     <form className="flex flex-col" onSubmit={handleSubmit(onSubmit)}>
                         <input type="email" placeholder="Email" {...register("email",{required: true, pattern: /^\S+@\S+$/i})}/>
                         {errors.email && errors.email.type === "required" && <span>This field is required</span>}
@@ -21,12 +30,17 @@ export default function Form() {
                         <input type="password" placeholder="Confirm Password" {...register("confirmPassword",{required: true})}/>
                         {errors.confirmPassword && errors.confirmPassword.type === "required" && <span>This field is required</span>}
                         {!errors.confirmPassword && watch("confirmPassword") !== watch().password && <span>Passwords do not match</span>}
-                        <input type="text" placeholder="Full name" {...register("fullname",{required: true})}/>
-                        {errors.fullname && errors.fullname.type === "required" && <span>This field is required</span>}
+                        <input type="text" placeholder="Full name" {...register("fullName",{required: true, minLength: 4})}/>
+                        {errors.fullName && errors.fullName.type === "required" && <span>This field is required</span>}
+                        {errors.fullName && errors.fullName.type === "minLength" && <span>Full name must be at least 4 characters</span>}
                         <input type="date" placeholder="Date of Birth" {...register("dateOfBirth",{required: true})} defaultValue={"2000-01-01"}/>
                         {errors.dateOfBirth && errors.dateOfBirth.type === "required" && <span>This field is required</span>}
-
-                        <button type="submit" className="btn btn-primary">Register</button>
+                        {isError && <span> {error.message}</span>}
+                        <button type="submit" className="btn btn-primary">
+                        {isLoading ? <ThreeDots
+                          radius={9} color="#fff" height={20} width={20} /> 
+                         : "Register"}
+                        </button>
                     </form>
                 </div>
                 <div className="col-2">
