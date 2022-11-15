@@ -16,7 +16,7 @@ export default function RegisterForm() {
     }
     return (
         <section>
-            <div className="register">
+            <div className="authform">
                 <div className="col-1">
                     <h2>Register</h2>
                     <ul>Already have an account? <Link to="/login">Login</Link></ul>

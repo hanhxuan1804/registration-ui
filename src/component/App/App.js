@@ -1,20 +1,45 @@
 import './App.css';
 
+import { Routes, Route, useNavigate } from 'react-router-dom';
 import RegisterForm from '../RegisterForm/RegisterForm';
-import { Routes, Route, Link } from 'react-router-dom';
+import LoginForm from '../LoginForm/LoginForm';
+import React, {  useState } from 'react';
+import { useMutation } from '@tanstack/react-query';
+import { loginUser } from "../../api";
+import { Header } from '../common';
 
 function App() {
+  const history = useNavigate();
+  
+  const [user, setUser] = useState(null);
+
+  const { mutateAsync: loginUserAsync, isLoading: loginUserIsLoading, isError: loginUserIsError, error: loginUserError } = useMutation(loginUser);
+  const Login = async (data) => {
+    const user = await loginUserAsync(data);
+    setUser(user);
+    history('/dashboard');
+  }
+
+  const Logout = () => {
+    console.log('User logged out');
+    history('/');
+    setUser(null);
+  };
+
+
   return (
     <div className="App">
+      <Header user={user} logOut={Logout}/>
+      <div className="App-main">
       <Routes>
         <Route path="/" element={<div>
           <h1>Home</h1>
-          <li><Link to="/login">Login</Link></li>
-          <li><Link to="/register">Register</Link></li>
+          <p>Home page body content</p>
         </div>} />
-        <Route path="/login" element={<div>Login page</div>} />
+        <Route path="/login" element={<LoginForm onSubmit={(data)=> Login(data) } isLoading={loginUserIsLoading} isError={loginUserIsError} error={loginUserError}></LoginForm>} />
         <Route path="/register" element={<RegisterForm />} />
       </Routes>
+      </div>
     </div>
   );
 }

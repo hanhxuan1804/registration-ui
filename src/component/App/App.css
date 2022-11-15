@@ -1,16 +1,35 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
 
 * > * {
+
     font-family: "Poppins", cursive;
     margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+
+}
+
+.App-header{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    background-color: #282c34;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: calc(10px + 2vmin);
+    color: white;
+    max-height: max-content;
 }
 
 
-
-.App {
+.App-main{
   min-height: 100vh;
   max-height: 120vh;
   display: flex;
+  flex-direction: row;
   justify-content: center;
   align-items: center;
   text-align: center;
@@ -20,7 +39,7 @@
   background-position: center;
 }
 
-.register{
+.authform{
   max-width: 850px;
   width: 90vw;
   height: 80%;
@@ -32,7 +51,7 @@
   background-color: white;
 }
 
-.register span{
+.authform span{
   color: #d65869;
   font-size: 0.7em;
   display: -webkit-box;
@@ -67,15 +86,23 @@ form > .btn{
   gap: 1em;
 }
 
+.flex > div{
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
 .flex-col{
   flex-direction: column;
 }
 
-.register .col-1{
+.authform .col-1{
   margin: auto;
 }
 
-.register .col-2 img{
+.authform .col-2 img{
   width: 425px;
   height: 100%;
   object-fit: cover;
@@ -87,7 +114,7 @@ form > .btn{
 
 
 @media screen and (min-width: 800px)  {
-  .register .col-2 img{
+  .authform .col-2 img{
     display: initial;
   }
 }
