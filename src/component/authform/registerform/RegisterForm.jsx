@@ -1,10 +1,11 @@
 import React from "react";
-import logoImg from "../../assets/logo.jpg";
+import logoImg from "../../../assets/logo.jpg";
 import {useForm} from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
 import { useMutation } from "@tanstack/react-query";
 import {ThreeDots} from 'react-loader-spinner'
-import { registerUser } from "../../api";
+import { registerUser } from "../../../api";
+import "./RegisterForm.css";
 
 export default function RegisterForm() {
     const history = useNavigate();

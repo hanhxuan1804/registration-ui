@@ -1,8 +1,9 @@
 import React from "react";
-import logoImg from "../../assets/logo.jpg";
+import logoImg from "../../../assets/logo.jpg";
 import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
 import { ThreeDots } from 'react-loader-spinner';
+import "./LoginForm.css";
 
 export default function LoginForm(props){
     const { onSubmit, isLoading, isError, error } = props;

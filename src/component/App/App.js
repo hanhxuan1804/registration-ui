@@ -1,12 +1,11 @@
 import './App.css';
 
 import { Routes, Route, useNavigate } from 'react-router-dom';
-import RegisterForm from '../RegisterForm/RegisterForm';
-import LoginForm from '../LoginForm/LoginForm';
-import React, {  useState } from 'react';
+import React, { useState } from 'react';
 import { useMutation } from '@tanstack/react-query';
 import { loginUser } from "../../api";
 import { Header } from '../common';
+import { RegisterForm, LoginForm } from '../authform';
 
 function App() {
   const history = useNavigate();
