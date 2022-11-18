@@ -29,7 +29,7 @@
 
 }
 .navbar_item:hover{
-    background-color: #d65869;
+    background-color: #003049;
     color: white;
     cursor: pointer;
 }
@@ -43,5 +43,14 @@
     font-weight: 600;
 }
 .navbar_item a:hover{
+    color: white;
+}
+
+.logout_btn a{
+    color: rgb(232, 41, 70);
+    cursor: pointer;
+}
+.logout_btn:hover{
+    background-color: #003049;
     color: white;
 }

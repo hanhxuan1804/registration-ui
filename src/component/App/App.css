@@ -11,7 +11,6 @@
 
 .App-main{
   min-height: 90vh;
-  max-height: 100vh;
   display: flex;
   flex-direction: row;
   justify-content: center;

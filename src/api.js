@@ -1,7 +1,7 @@
 
 
 export const registerUser = async (data) => {
-    const response = await fetch(`${process.env.REACT_APP_API_URL}/auth/register`, {
+    const response = await fetch(`${process.env.REACT_APP_DEV_API_URL}/auth/register`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -21,7 +21,7 @@ export const registerUser = async (data) => {
 }
 
 export const loginUser = async (data) => {
-    const response = await fetch(`${process.env.REACT_APP_API_URL}/auth/login`, {
+    const response = await fetch(`${process.env.REACT_APP_DEV_API_URL}/auth/login`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -32,6 +32,22 @@ export const loginUser = async (data) => {
     const result = await response.json();
     if(response.ok) {
         return result;
+    }
+    throw new Error(result.message);
+}
+
+export const userProfile = async (token) => {
+    const response = await fetch(`${process.env.REACT_APP_DEV_API_URL}/auth/profile`, {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+        }
+
+    });
+    const result = await response.json();
+    if(response.ok) {
+        return result.user;
     }
     throw new Error(result.message);
 }
