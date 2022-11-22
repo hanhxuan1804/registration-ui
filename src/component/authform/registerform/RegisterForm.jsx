@@ -45,8 +45,9 @@ export default function RegisterForm() {
                     </form>
                 </div>
                 <div className="col-2">
-                    <img src={logoImg} alt="bg" />
-                    
+                    <div className="img-container">
+                        <img src={logoImg} alt="bg" />
+                    </div>
                 </div>
             </div>
         </section>
