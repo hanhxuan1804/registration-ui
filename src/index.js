@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { BrowserRouter } from 'react-router-dom';
 import {QueryClient, QueryClientProvider} from '@tanstack/react-query';
+import { CookiesProvider } from 'react-cookie';
 // import {ReactQueryDevtools} from '@tanstack/react-query-devtools';
 import './index.css';
 import App from './component/App/App';
@@ -13,10 +14,12 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
     <BrowserRouter >
+      <CookiesProvider>
       <QueryClientProvider client={queryClient}>
         <App />
         {/* <ReactQueryDevtools initialIsOpen={false} /> */}
       </QueryClientProvider>
+      </CookiesProvider>
     </BrowserRouter>
   </React.StrictMode>
 );

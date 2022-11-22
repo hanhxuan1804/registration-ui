@@ -1,8 +1,9 @@
 import './App.css';
 
 import { Routes, Route, useNavigate } from 'react-router-dom';
-import React, { useState } from 'react';
+import React from 'react';
 import { useMutation } from '@tanstack/react-query';
+import { useCookies } from 'react-cookie';
 import { loginUser } from "../../api";
 import { Header } from '../common';
 import { RegisterForm, LoginForm } from '../authform';
@@ -11,26 +12,25 @@ import ProfilePage from '../profilepage';
 function App() {
   const history = useNavigate();
   
-  const [userToken, setUserToken] = useState(localStorage.getItem('userToken') || '');
+  const [cookies, setCookie, removeCookie] = useCookies(['jwttoken']);
 
   const { mutateAsync: loginUserAsync, isLoading: loginUserIsLoading, isError: loginUserIsError, error: loginUserError } = useMutation(loginUser);
   const Login = async (data) => {
     const user = await loginUserAsync(data);
-    setUserToken(user.token);
-    localStorage.setItem('userToken', user.token);
+    setCookie("jwttoken", user.token, { path: '/', sameSite: true , secure: true});
     history('/dashboard');
   }
 
   const Logout = () => {
     console.log('User logged out');
     history('/');
-    setUserToken(null);
+    removeCookie('jwttoken');
   };
 
 
   return (
     <div className="App">
-      <Header user={userToken} logOut={Logout}/>
+      <Header user={cookies.jwttoken} logOut={Logout}/>
       <div className="App-main">
       <Routes>
         <Route path="/" element={<div>
@@ -39,7 +39,7 @@ function App() {
         </div>} />
         <Route path="/login" element={<LoginForm onSubmit={(data)=> Login(data) } isLoading={loginUserIsLoading} isError={loginUserIsError} error={loginUserError}></LoginForm>} />
         <Route path="/register" element={<RegisterForm />} />
-        <Route path="/profile" element={<ProfilePage token={userToken}/>}/>
+        <Route path="/profile" element={<ProfilePage token={cookies.jwttoken}/>}/>
       </Routes>
       </div>
     </div>

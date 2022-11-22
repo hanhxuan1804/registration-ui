@@ -1,6 +1,5 @@
-
-
 export const registerUser = async (data) => {
+    
     const response = await fetch(`${process.env.REACT_APP_DEV_API_URL}/auth/register`, {
         method: 'POST',
         headers: {
@@ -21,7 +20,7 @@ export const registerUser = async (data) => {
 }
 
 export const loginUser = async (data) => {
-    const response = await fetch(`${process.env.REACT_APP_DEV_API_URL}/auth/login`, {
+      const response = await fetch(`${process.env.REACT_APP_DEV_API_URL}/auth/login`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
