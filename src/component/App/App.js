@@ -16,8 +16,8 @@ function App() {
 
   const { mutateAsync: loginUserAsync, isLoading: loginUserIsLoading, isError: loginUserIsError, error: loginUserError } = useMutation(loginUser);
   const Login = async (data) => {
-    const user = await loginUserAsync(data);
-    setCookie("jwttoken", user.token, { path: '/', sameSite: true , secure: true});
+    const returndata = await loginUserAsync(data);
+    setCookie("jwttoken", returndata.token, { path: '/', sameSite: true , secure: true});
     history('/dashboard');
   }
 

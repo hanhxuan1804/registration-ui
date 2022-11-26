@@ -7,8 +7,8 @@
     display:flex;
     border: 1px solid #0a0a0b;
     border-radius: 10px;
-    box-shadow: 1px 3px 10px #e9ecef;
-    background-color: white;
+    box-shadow: 1px 3px 10px #828588;
+    background-image: linear-gradient(to bottom left, rgba(2,0,36,1) 0%, rgba(9,9,121,1) 10%, rgba(0,212,255,1) 90%);
   }
   
   .authform span{
@@ -61,14 +61,19 @@
   .authform .col-1{
     margin: auto;
   }
+
+  .img-container{
+    height: 100%;
+    display: flex;
+  }
   
   .authform .col-2 img{
-    width: 425px;
-    height: 100%;
+    width: 400px;
+    height: 400px;
     object-fit: cover;
-    align-self: flex-end;
-    border-top-right-radius: 5px;
-    border-bottom-right-radius: 5px;
+    align-self: center;
+    border-radius: 100%;
+    padding: 8%;
     display: none;
   }
   
